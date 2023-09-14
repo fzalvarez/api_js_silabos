@@ -3,11 +3,16 @@
 const express = require('express');
 const router = express.Router();
 
-// Ruta para obtener todos los silabos
-router.get('/silabos', (req, res) => {
-  // Aquí puedes agregar la lógica para obtener los silabos de la base de datos
-  // y enviarlos como respuesta en formato JSON
-  res.json({ message: 'Obtener todos los silabos' });
+// Ruta/Controlador para obtener todos los silabos
+router.get('/silabos', async(req, res) => {
+  try {
+    // Aquí puedes utilizar la conexión a la base de datos (pool) para realizar consultas a PostgreSQL
+    const results = await pool.query('SELECT * FROM silabos');
+    res.json(results.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener los silabos' });
+  }
 });
 
 // Ruta para obtener un silabo por su ID

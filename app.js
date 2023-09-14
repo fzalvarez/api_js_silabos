@@ -1,22 +1,24 @@
+// app.js
+
 const express = require('express');
-const { Pool } = require('pg');
+const dotenv = require('dotenv');
+const db = require('./config/db'); // Importa la configuración de la base de datos desde la carpeta config
+
+dotenv.config(); // Carga las variables de entorno desde .env
+
 const app = express();
 const port = process.env.PORT || 3000;
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false } // Solo necesario si estás usando Heroku
-});
-
 app.use(express.json());
 
-// Ruta de ejemplo
+// Rutas de ejemplo
 app.get('/', (req, res) => {
   res.json({ message: 'API JS Silabos funcionando' });
 });
 
-// Rutas API - Agrega tus rutas aquí
+// Rutas de Silabos - Puedes importar y usar silabos.js aquí
 
+// Inicia el servidor
 app.listen(port, () => {
   console.log(`Servidor en ejecución en el puerto ${port}`);
 });
